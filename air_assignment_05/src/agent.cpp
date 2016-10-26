@@ -130,7 +130,7 @@ void Agent::iterative_deepening_search() {
     pair<int, int> current_node = initial_pos;
     pair<int, int> new_node = initial_pos;
     for(uint i = 1;i <= number_of_goals;i++) {
-    for(int limit = 1; limit < 1000; limit++) {
+    for(int limit = 1; limit < max_limit; limit *= 2) {
         //cout << "Limit: " << limit << endl;
         bool res = depth_limited_seach(new_node, i, limit, new_node);
         if(res) {
