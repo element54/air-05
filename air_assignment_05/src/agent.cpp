@@ -82,6 +82,10 @@ bool Agent::recursive_dls(pair<int, int> current_node,
     if(current_level >= limit) {
         return false;
     }
+    if(current_level > deepest_level) {
+        deepest_level = current_level;
+    }
+    number_of_visited_nodes++;
     if(std::find(current_path.begin(), current_path.end(), current_node) != current_path.end()) {
         return false;
     }
@@ -94,8 +98,6 @@ bool Agent::recursive_dls(pair<int, int> current_node,
         return false;
     }
 
-    explored_nodes.push_back(current_node);
-    current_path.push_back(current_node);
 
     string data = map[row][col];
     if(data.at(0)  - '0' == goal) {
@@ -106,6 +108,9 @@ bool Agent::recursive_dls(pair<int, int> current_node,
     }
     //backtrack_path(current_path);
 
+    explored_nodes.push_back(current_node);
+    current_path.push_back(current_node);
+    total_of_stored_nodes++;
 
     bool res = recursive_dls(make_pair(row, col + 1), goal, current_level + 1, limit, current_path, explored_nodes, new_node);
     if(!res) {
